@@ -38,7 +38,16 @@ public class PullingJump : MonoBehaviour
 
     private void OnCollisionStay(Collision collision)
     {
-        isCanJump = true;
+        ContactPoint[] contacts=collision.contacts;
+        Vector3 otherNormal = contacts[0].normal;
+        Vector3 upVector= new Vector3(0, 1, 0);
+        float dotUN = Vector3.Dot(upVector, otherNormal);
+        float dotDeg = Mathf.Acos(dotUN) * Mathf.Rad2Deg;
+        if (dotDeg<=45)
+        {
+            isCanJump = true;
+        }
+       
     }
 
     private void OnCollisionExit(Collision collision)
